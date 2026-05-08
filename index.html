@@ -63,7 +63,7 @@
                     <span class="stat-label">Skills</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value">7</span>
+                    <span class="stat-value">8</span>
                     <span class="stat-label">Categories</span>
                 </div>
                 <div class="stat">
@@ -111,6 +111,7 @@
                 <button class="filter-tab" data-filter="analysis">🔬 Analysis</button>
                 <button class="filter-tab" data-filter="writing">📝 Writing</button>
                 <button class="filter-tab" data-filter="communication">🎯 Communication</button>
+                <button class="filter-tab" data-filter="engineering">⚙️ Engineering</button>
             </div>
 
             <!-- Skills Grid - Dynamically generated from skill collection -->
@@ -143,6 +144,9 @@
                             {% when 'communication' %}
                                 {% assign skill_icon = "🎯" %}
                                 {% assign skill_label = "Communication" %}
+                            {% when 'engineering' %}
+                                {% assign skill_icon = "⚙️" %}
+                                {% assign skill_label = "Engineering" %}
                         {% endcase %}
 
                         <article class="skill-card" data-category="{{ category }}">

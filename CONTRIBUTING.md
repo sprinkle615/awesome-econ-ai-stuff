@@ -45,7 +45,7 @@ Open a [Skill Proposal Issue](https://github.com/meleantonio/awesome-econ-ai-stu
 
 1. Fork this repository
 2. Create a new branch: `git checkout -b skill/your-skill-name`
-3. Add your skill in `skills/<workflow-stage>/your-skill-name/SKILL.md`
+3. Add your skill in `_skills/<workflow-stage>/your-skill-name/SKILL.md`
 4. Update `README.md` to include your skill in the catalog
 5. Submit a pull request
 
@@ -77,7 +77,7 @@ Every skill must include a `SKILL.md` file with YAML frontmatter:
 ---
 name: your-skill-name
 description: A one-line description (shown during skill discovery)
-workflow_stage: analysis  # One of: ideation, literature, theory, data, analysis, writing, communication
+workflow_stage: analysis  # One of: ideation, literature, theory, data, analysis, writing, communication, engineering
 compatibility:
   - claude-code
   - cursor

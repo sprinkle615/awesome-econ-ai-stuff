@@ -8,6 +8,16 @@
 const GITHUB_REPO = 'meleantonio/awesome-econ-ai-stuff';
 const GITHUB_BRANCH = 'main'; // or 'master', adjust as needed
 
+/** SDD skill includes templates and reference — shared between zip-all and single-page bundle download */
+const SDD_BUNDLE_BASE = '_skills/engineering/sdd';
+const SDD_BUNDLE_FILES = [
+    'reference.md',
+    'templates/spec/requirements.md',
+    'templates/spec/design.md',
+    'templates/spec/tasks.md',
+    'templates/steering/coding-standards.md'
+];
+
 /**
  * List of all skills with their paths
  * This should match the actual structure in the skills directory
@@ -19,12 +29,17 @@ const SKILLS_LIST = [
     { path: '_skills/data/stata-data-cleaning/SKILL.md', name: 'stata-data-cleaning' },
     { path: '_skills/data/api-data-fetcher/SKILL.md', name: 'api-data-fetcher' },
     { path: '_skills/theory/latex-econ-model/SKILL.md', name: 'latex-econ-model' },
+    { path: '_skills/theory/general-equilibrium-model-builder/SKILL.md', name: 'general-equilibrium-model-builder' },
     { path: '_skills/writing/academic-paper-writer/SKILL.md', name: 'academic-paper-writer' },
     { path: '_skills/writing/latex-tables/SKILL.md', name: 'latex-tables' },
     { path: '_skills/communication/beamer-presentation/SKILL.md', name: 'beamer-presentation' },
     { path: '_skills/communication/econ-visualization/SKILL.md', name: 'econ-visualization' },
     { path: '_skills/ideation/research-ideation/SKILL.md', name: 'research-ideation' },
-    { path: '_skills/literature/lit-review-assistant/SKILL.md', name: 'lit-review-assistant' }
+    { path: '_skills/literature/lit-review-assistant/SKILL.md', name: 'lit-review-assistant' },
+    { path: `${SDD_BUNDLE_BASE}/SKILL.md`, name: 'sdd', bundleBase: SDD_BUNDLE_BASE, bundleFiles: SDD_BUNDLE_FILES },
+    { path: '_skills/engineering/techdebt/SKILL.md', name: 'techdebt' },
+    { path: '_skills/engineering/commit-push-pr/SKILL.md', name: 'commit-push-pr' },
+    { path: '_skills/engineering/code-simplifier/SKILL.md', name: 'code-simplifier' }
 ];
 
 /**
@@ -104,15 +119,23 @@ async function downloadAllSkills() {
         const fetchPromises = SKILLS_LIST.map(async (skill) => {
             try {
                 const content = await fetchFileContent(skill.path);
-                
+
                 // Preserve directory structure in zip
                 const pathParts = skill.path.split('/');
                 const category = pathParts[1]; // e.g., 'analysis'
                 const skillName = pathParts[2]; // e.g., 'r-econometrics'
-                
+
                 const categoryFolder = skillsFolder.folder(category);
                 const skillFolder = categoryFolder.folder(skillName);
                 skillFolder.file('SKILL.md', content);
+
+                if (skill.bundleBase && skill.bundleFiles && skill.bundleFiles.length) {
+                    for (const rel of skill.bundleFiles) {
+                        const fullPath = `${skill.bundleBase}/${rel}`;
+                        const extra = await fetchFileContent(fullPath);
+                        skillFolder.file(rel, extra);
+                    }
+                }
             } catch (error) {
                 console.error(`Error fetching ${skill.path}:`, error);
                 // Continue with other files even if one fails
@@ -206,6 +229,58 @@ async function downloadSkillFile() {
     }
 }
 
+/**
+ * Download full SDD skill folder (SKILL.md + templates + reference) as a zip
+ */
+async function downloadSddSkillBundle() {
+    const button = document.getElementById('download-skill-bundle-btn');
+    if (button) {
+        button.disabled = true;
+        button.textContent = 'Downloading...';
+    }
+
+    try {
+        const JSZip = window.JSZip;
+        if (!JSZip) {
+            throw new Error('JSZip library not loaded');
+        }
+
+        const zip = new JSZip();
+        const skillFolder = zip.folder('sdd');
+
+        const skillMd = await fetchFileContent(`${SDD_BUNDLE_BASE}/SKILL.md`);
+        skillFolder.file('SKILL.md', skillMd);
+
+        for (const rel of SDD_BUNDLE_FILES) {
+            const fullPath = `${SDD_BUNDLE_BASE}/${rel}`;
+            const extra = await fetchFileContent(fullPath);
+            skillFolder.file(rel, extra);
+        }
+
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'sdd-skill-bundle.zip';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        if (button) {
+            button.disabled = false;
+            button.textContent = '📦 Download full skill (zip)';
+        }
+    } catch (error) {
+        console.error('Error downloading SDD bundle:', error);
+        alert('Failed to download skill bundle. Please try again.');
+        if (button) {
+            button.disabled = false;
+            button.textContent = '📦 Download full skill (zip)';
+        }
+    }
+}
+
 // Initialize download buttons when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize download all button
@@ -218,5 +293,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadSkillBtn = document.getElementById('download-skill-btn');
     if (downloadSkillBtn) {
         downloadSkillBtn.addEventListener('click', downloadSkillFile);
+    }
+
+    const downloadSddBundleBtn = document.getElementById('download-skill-bundle-btn');
+    if (downloadSddBundleBtn) {
+        downloadSddBundleBtn.addEventListener('click', downloadSddSkillBundle);
     }
 });

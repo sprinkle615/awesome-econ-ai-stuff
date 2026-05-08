@@ -34,7 +34,7 @@ jobs:
           from pathlib import Path
           import re
 
-          skills_root = Path("skills")
+          skills_root = Path("_skills")
           if skills_root.exists():
               for skill_file in skills_root.rglob("SKILL.md"):
                   text = skill_file.read_text(encoding="utf-8")

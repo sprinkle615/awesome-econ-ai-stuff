@@ -45,8 +45,11 @@ layout: null
         <section>
             <div class="container">
                 <div class="skill-content">
-                    <div style="margin-bottom: 2rem; display: flex; justify-content: flex-end;">
+                    <div style="margin-bottom: 2rem; display: flex; justify-content: flex-end; gap: 0.5rem; flex-wrap: wrap;">
                         <button id="download-skill-btn" class="btn btn-secondary">📥 Download SKILL.md</button>
+                        {% if page.url contains '/engineering/sdd' %}
+                        <button id="download-skill-bundle-btn" type="button" class="btn btn-secondary">📦 Download full skill (zip)</button>
+                        {% endif %}
                     </div>
                     {{ content }}
                 </div>

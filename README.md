@@ -43,7 +43,7 @@ Skills work with multiple AI coding assistants:
 # Clone a skill to your tools directory
 # Example for Claude Code:
 mkdir -p ~/.claude/skills
-cp -r skills/analysis/r-econometrics ~/.claude/skills/
+cp -r _skills/analysis/r-econometrics ~/.claude/skills/
 ```
 
 ### 3. Use the Skill
@@ -61,40 +61,43 @@ Invoke skills via slash commands or natural language:
 Skills are organized by research workflow stage:
 
 ### 💡 Ideation
-- [research-ideation](skills/ideation/research-ideation/) - Generate research questions from economic phenomena
+- [research-ideation](_skills/ideation/research-ideation/) - Generate research questions from economic phenomena
 
 ### 📚 Literature Review
-- [lit-review-assistant](skills/literature/lit-review-assistant/) - Search, summarize, and synthesize papers
+- [lit-review-assistant](_skills/literature/lit-review-assistant/) - Search, summarize, and synthesize papers
 
 ### 📐 Theory & Modeling
-- [latex-econ-model](skills/theory/latex-econ-model/) - Write economic models in LaTeX
-- [general-equilibrium-model-builder](skills/theory/general-equilibrium-model-builder/) - Build and solve Walrasian GE models in Julia
-- [game-theory-solver](skills/theory/game-theory-solver/) - Solve and visualize game theory problems
+- [latex-econ-model](_skills/theory/latex-econ-model/) - Write economic models in LaTeX
+- [general-equilibrium-model-builder](_skills/theory/general-equilibrium-model-builder/) - Build and solve Walrasian GE models in Julia
 
 ### 📊 Data Management
-- [stata-data-cleaning](skills/data/stata-data-cleaning/) - Clean and transform data in Stata
-- [api-data-fetcher](skills/data/api-data-fetcher/) - Fetch data from economic APIs (FRED, World Bank)
+- [stata-data-cleaning](_skills/data/stata-data-cleaning/) - Clean and transform data in Stata
+- [api-data-fetcher](_skills/data/api-data-fetcher/) - Fetch data from economic APIs (FRED, World Bank)
 
 ### 🔬 Econometric Analysis
-- [r-econometrics](skills/analysis/r-econometrics/) - Run IV, DiD, RDD in R
-- [python-panel-data](skills/analysis/python-panel-data/) - Panel data analysis with Python
-- [stata-regression](skills/analysis/stata-regression/) - Regression analysis in Stata
+- [r-econometrics](_skills/analysis/r-econometrics/) - Run IV, DiD, RDD in R
+- [python-panel-data](_skills/analysis/python-panel-data/) - Panel data analysis with Python
+- [stata-regression](_skills/analysis/stata-regression/) - Regression analysis in Stata
 
 ### 📝 Academic Writing
-- [academic-paper-writer](skills/writing/academic-paper-writer/) - Draft papers with proper structure
-- [latex-tables](skills/writing/latex-tables/) - Generate publication-ready LaTeX tables
-- [referee-response](skills/writing/referee-response/) - Draft referee report responses
+- [academic-paper-writer](_skills/writing/academic-paper-writer/) - Draft papers with proper structure
+- [latex-tables](_skills/writing/latex-tables/) - Generate publication-ready LaTeX tables
 
 ### 🎯 Communication
-- [beamer-presentation](skills/communication/beamer-presentation/) - Create Beamer slides
-- [econ-visualization](skills/communication/econ-visualization/) - Publication-quality charts
-- [research-website](skills/communication/research-website/) - Build academic project websites
+- [beamer-presentation](_skills/communication/beamer-presentation/) - Create Beamer slides
+- [econ-visualization](_skills/communication/econ-visualization/) - Publication-quality charts
+
+### ⚙️ Engineering
+- [sdd](_skills/engineering/sdd/) - Spec-Driven Development lifecycle (requirements, design, tasks)
+- [techdebt](_skills/engineering/techdebt/) - Find and fix technical debt
+- [commit-push-pr](_skills/engineering/commit-push-pr/) - Commit, push, and open a pull request
+- [code-simplifier](_skills/engineering/code-simplifier/) - Simplify and clean up code after changes
 
 ---
 
 ## Creating Skills
 
-See our [Skill Template](skills/SKILL_TEMPLATE.md) and [Contributing Guide](CONTRIBUTING.md).
+See our [Skill Template](_skills/SKILL_TEMPLATE.md) and [Contributing Guide](CONTRIBUTING.md).
 
 Basic structure:
 ```yaml

@@ -105,3 +105,45 @@ Assistant actions:
 - Identified the root cause: `SKILLS_LIST` in `download.js` was referencing paths starting with `skills/...` but the actual folder in the repository is `_skills/...` (with underscore prefix)
 - Updated all 12 skill paths in `SKILLS_LIST` from `skills/` to `_skills/` to match the actual folder structure
 - This fix ensures the fetch requests target the correct file paths, allowing the SKILL.md files to be downloaded and added to the zip file
+
+---
+
+## 2026-03-22 (GitHub issue #24 — README broken links)
+
+User request:
+- Fix GitHub issue #24 about the README (broken internal links).
+
+Assistant actions:
+- Issue: catalog and template links used `skills/...` but the repository stores skills under `_skills/` (Jekyll collection), so GitHub resolved links to non-existent paths.
+- Updated README: all skill catalog links, `Skill Template` link, and the `cp` quick-start example now use `_skills/` paths so links resolve on github.com.
+- Follow-up: removed three catalog lines (`game-theory-solver`, `referee-response`, `research-website`) because those directories are not present under `_skills/`; keeping them would still 404 on GitHub.
+
+User request:
+- Open a PR for the README fix.
+
+Assistant actions:
+- Branch `fix/readme-skill-links-issue-24`, commit, push to `origin`, opened PR: https://github.com/meleantonio/awesome-econ-ai-stuff/pull/26
+
+---
+
+## 2026-03-22 (README: remove catalog entries for missing skills)
+
+User request:
+- Verify and fix: README linked to `game-theory-solver`, `referee-response`, and `research-website` under `_skills/` but those directories do not exist; remove those lines; open a PR.
+
+Assistant actions:
+- Confirmed no `_skills/theory/game-theory-solver`, `_skills/writing/referee-response`, or `_skills/communication/research-website` in the repo.
+- Removed the three bullets from README and clarified the earlier #24 session note in this file.
+- Opened PR: https://github.com/meleantonio/awesome-econ-ai-stuff/pull/27
+
+---
+
+## 2026-03-22 (Copy ~/.cursor/skills into repo + engineering category)
+
+User request:
+- Copy skills from `~/.cursor/skills/` into `_skills/engineering/` (sdd, techdebt, commit-push-pr, code-simplifier), integrate the Jekyll site: new filter tab, `download.js`, deploy workflow `_skills` path, README/CONTRIBUTING/submit form, SDD bundle zip for templates + reference.
+
+Assistant actions:
+- Added `_skills/engineering/` with normalized front matter (`workflow_stage: engineering`), synced `index.md` from `SKILL.md`.
+- Updated `index.html` (8 categories, Engineering filter + Liquid case), `assets/js/download.js` (SDD bundle constants, `general-equilibrium-model-builder` in zip-all), `_layouts/skill.html` (SDD full zip button), `.github/workflows/deploy.yml` (`_skills` root), `README.md`, `CONTRIBUTING.md`, `pages/submit.html`.
+
